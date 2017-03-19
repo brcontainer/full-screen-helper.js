@@ -24,18 +24,24 @@
     }
 
     function msFS() {
-        var iw = w.innerWidth || d.documentElement.clientWidth || d.body.clientWidth;
+        var html, iw = w.innerWidth;
+
+        if (!iw) {
+            html = d.documentElement || (d.body && d.body.parentNode);
+            iw = html.clientWidth;
+        }
+
         return iw == w.screen.width;
     }
 
     function detectResize() {
         if (currentElement) {
             clearTimeout(timer);
-            timer = setTimeout(toogleFSClass, 100);
+            timer = setTimeout(toggleFSClass, 100);
         }
     }
 
-    function toogleFSClass() {
+    function toggleFSClass() {
         if (!currentElement) {
             return;
         }
@@ -50,7 +56,7 @@
         }
     }
 
-    function msToogleFS(element) {
+    function msToggleFS(element) {
         if (typeof w.ActiveXObject === "undefined") {
             wso = null;
         }
@@ -93,7 +99,7 @@
         } else if (element.msRequestFullscreen) {
             element.msRequestFullscreen();
         } else {
-            return msToogleFS(element);
+            return msToggleFS(element);
         }
     }
 
@@ -111,13 +117,9 @@
         }
     }
 
-    function toogleFS(element) {
-        if (fsEnabled() === false) {
-            return false;
-        }
-
+    function toggleFS(element) {
         if (getElementInFS() === null) {
-            launchFS(element);
+            requestFS(element);
         } else {
             exitFS();
         }
@@ -126,7 +128,7 @@
     window.FullScreenHelper = {
         "current": getElementInFS,
         "request": requestFS,
-        "toggle": toogleFS,
+        "toggle": toggleFS,
         "exit": exitFS
     };
 })(document, window);
