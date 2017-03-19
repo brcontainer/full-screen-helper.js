@@ -1,0 +1,77 @@
+/*
+ * full-screen-helper.js
+ * Copyright (c) 2017 Guilherme Nascimento (brcontainer@yahoo.com.br)
+ *
+ * Released under the MIT license
+ */
+
+.full-screen-helper {
+    position: absolute !fixed;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+}
+
+/* Warning: "Fullscreen" "invalid" selectors don't work if separated by commas,
+ * one rule is required for each.
+ *
+ * Details: https://www.w3.org/TR/selectors4/#logical-combination
+ * > The equivalence is true in this example because all the selectors are valid selectors.
+ * > If just one of these selectors were invalid, the entire selector list would be invalid.
+ * > This would invalidate the rule for all three heading elements, whereas in the former
+ * > case only one of the three individual heading rules would be invalidated.
+ */
+
+:fullscreen {
+    width: 100% !important;
+    height: 100% !important;
+
+    /* fallback: don't use !important*/
+    background-color: white;
+    z-index: 2147483647;
+}
+
+:full-screen {
+    width: 100% !important;
+    height: 100% !important;
+
+    /* fallback: don't use !important*/
+    background-color: white;
+    z-index: 2147483647;
+}
+
+:-webkit-full-screen {
+    width: 100% !important;
+    height: 100% !important;
+
+    /* fallback: don't use !important*/
+    background-color: white;
+    z-index: 2147483647;
+}
+
+:-moz-full-screen {
+    width: 100% !important;
+    height: 100% !important;
+
+    /* fallback: don't use !important*/
+    background-color: white;
+    z-index: 2147483647;
+}
+
+:-ms-fullscreen {
+    width: 100% !important;
+    height: 100% !important;
+
+    /* fallback: don't use !important*/
+    background-color: white;
+    z-index: 2147483647;
+}
+
+.full-screen-helper {
+    width: 100% !important;
+    height: 100% !important;
+
+    /* fallback: don't use !important*/
+    background-color: white;
+    z-index: 2147483647;
+}

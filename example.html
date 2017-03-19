@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>fullscreen cross-browser</title>
+    <link rel="stylesheet" type="text/css" href="full-screen-helper.css">
+</head>
+<body>
+    <div id="example1">
+        <p>Hello, world!</p>
+        <button onclick="FullScreenHelper.exit();">Exit</button>
+    </div>
+
+    <div id="example2">
+        <p>Div in fullscreen</p>
+        <button onclick="FullScreenHelper.exit();">Exit</button>
+    </div>
+
+    <button onclick="FullScreenHelper.request(document.getElementById('example1'));">test 1</button>
+    <button onclick="FullScreenHelper.request(document.getElementById('example2'));">test 2</button>
+
+    <script type="text/javascript" src="full-screen-helper.js"></script>
+</body>
+</html>
