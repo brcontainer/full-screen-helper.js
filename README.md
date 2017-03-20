@@ -32,12 +32,23 @@ Entire page in fullscreen:
 
 Method | Description
 --- | ---
-`FullScreenHelper.current()` | Get current element in fullscreen if in fullscreen, otherwise returns null
+`FullScreenHelper.supported()` | Return `true` if browser support fullscreen, otherwise return `false`
+`FullScreenHelper.viewport(true or false)` | If define `true` use fullviewport as fallback to browsers without support to fullscreen. Default is `true`
 `FullScreenHelper.request(element)` | Show element in fullscreen, if there is not another one on fullscreen
 `FullScreenHelper.toggle(element)` | Put the element in fullscreen or restore
-`FullScreenHelper.exit()` | exit fullscreen mode
-`FullScreenHelper.root(element)` | If you have removed the scrollbar from the root element on the page and added it to an element within the page for some reason, you can set it here for better scrollbar control (only needed for older versions than IE11)
-`FullScreenHelper.supported()` | Return `true` if browser support fullscreen, otherwise return `false`
+`FullScreenHelper.exit()` | Exit fullscreen mode
+`FullScreenHelper.current()` | Get current element in fullscreen, otherwise returns `null`
+
+# jQuery fullscreen API
+
+Method | Equivalent
+--- | ---
+`$(':fullscreen')` | `FullScreenHelper.current()`
+`$('...').fullScreenHelper('request');` | `FullScreenHelper.request(element)`
+`$('...').fullScreenHelper('toggle');` | `FullScreenHelper.toggle(element)`
+`$.fullScreenHelper('supported');` | `FullScreenHelper.supported()`
+`$.fullScreenHelper('exit');` | `FullScreenHelper.exit()`
+
 
 ### Fullscreen in Internet Explorer
 

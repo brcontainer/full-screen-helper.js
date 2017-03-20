@@ -1047,8 +1047,12 @@ body .markdown-body
 </thead>
 <tbody>
 <tr>
-<td><code>FullScreenHelper.current()</code></td>
-<td>Get current element in fullscreen if in fullscreen, otherwise returns null</td>
+<td><code>FullScreenHelper.supported()</code></td>
+<td>Return <code>true</code> if browser support fullscreen, otherwise return <code>false</code></td>
+</tr>
+<tr>
+<td><code>FullScreenHelper.viewport(true or false)</code></td>
+<td>If define <code>true</code> use fullviewport as fallback to browsers without support to fullscreen. Default is <code>true</code></td>
 </tr>
 <tr>
 <td><code>FullScreenHelper.request(element)</code></td>
@@ -1060,15 +1064,42 @@ body .markdown-body
 </tr>
 <tr>
 <td><code>FullScreenHelper.exit()</code></td>
-<td>exit fullscreen mode</td>
+<td>Exit fullscreen mode</td>
 </tr>
 <tr>
-<td><code>FullScreenHelper.root(element)</code></td>
-<td>If you have removed the scrollbar from the root element on the page and added it to an element within the page for some reason, you can set it here for better scrollbar control (only needed for older versions than IE11)</td>
+<td><code>FullScreenHelper.current()</code></td>
+<td>Get current element in fullscreen, otherwise returns <code>null</code></td>
+</tr>
+</tbody>
+</table>
+<h1 id="jquery-fullscreen-api"><a name="user-content-jquery-fullscreen-api" href="#jquery-fullscreen-api" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>jQuery fullscreen API</h1>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$(':fullscreen')</code></td>
+<td><code>FullScreenHelper.current()</code></td>
 </tr>
 <tr>
+<td><code>$('...').fullScreenHelper('request');</code></td>
+<td><code>FullScreenHelper.request(element)</code></td>
+</tr>
+<tr>
+<td><code>$('...').fullScreenHelper('toggle');</code></td>
+<td><code>FullScreenHelper.toggle(element)</code></td>
+</tr>
+<tr>
+<td><code>$.fullScreenHelper('supported');</code></td>
 <td><code>FullScreenHelper.supported()</code></td>
-<td>Return <code>true</code> if browser support fullscreen, otherwise return <code>false</code></td>
+</tr>
+<tr>
+<td><code>$.fullScreenHelper('exit');</code></td>
+<td><code>FullScreenHelper.exit()</code></td>
 </tr>
 </tbody>
 </table>

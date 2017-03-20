@@ -1,31 +1,33 @@
 /*
- * full-screen-helper.js 0.2.0
+ * full-screen-helper.js 1.0.0-rc
  *
  * Copyright (c) 2017 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
  * Released under the MIT license
  */
 
-(function (d, w) {
+(function (d, w, u) {
     "use strict";
 
-    var sy = 0,
-        sx = 0,
-        wso,
-        html,
-        body,
-        target,
-        timer = 0,
-        currentElement,
-        detectOnMS = false,
-        clsRE = /(^|\s+)full-screen-helper($|\s+)/i,
-        clsNSRE = /(^|\s+)fsh-infullscreen($|\s+)/i,
-        eventsFS = [
-            "webkitfullscreenchange",
-            "mozfullscreenchange",
-            "fullscreenchange",
-            "MSFullscreenChange"
-        ];
+    var html, body, current, timer,
+
+    wsso = null, wssoc = false, escEvt = false,
+    useviewport = false, allowviewport = true,
+
+    sc = !!d.exitFullscreen,
+    mozc = !!d.mozCancelFullScreen,
+    wkc = !!(d.webkitExitFullscreen || d.webkitCancelFullScreen),
+    wkco = !!d.webkitCancelFullScreen,
+    wkcn = !!d.webkitExitFullscreen,
+    msc = !!d.msExitFullscree,
+    reRoot = /(^|\s+)fsh-infullscreen($|\s+)/i,
+    reElement = /(^|\s+)full-screen-helper($|\s+)/i,
+    events = [
+        "webkitfullscreenchange", "mozfullscreenchange",
+        "fullscreenchange", "MSFullscreenChange"
+    ];
+
+    var realsupport = sc || mozc || wkc || msc;
 
     function isHTMLElement(obj) {
         if (w.HTMLElement) {
@@ -35,208 +37,235 @@
         return obj && obj.nodeType === 1 && obj.ownerDocument;
     }
 
-    function msDetectEscTrigger(e) {
-        if (currentElement && wso) {
-            e = e || w.event;
+    function addEvt(type, callback) {
+        d.addEventListener ?
+            d.addEventListener(type, callback) :
+            d.attachEvent("on" + type, callback);
+    }
 
-            if (e && e.keyCode == 27) {
-                wso.SendKeys("{F11}");
+    function isFS1() {
+        getElements();
+        return (w.outerWidth || w.innerWidth || d.width || html.clientWidth) == w.screen.width;
+    }
+
+    function isFS2() {
+        return !!(d.fullscreenElement || d.mozFullScreenElement ||
+                  d.webkitFullscreenElement || d.msFullscreenElement);
+    }
+
+    function getWSSO() {
+        if (typeof w.ActiveXObject === "undefined") {
+            wsso = false;
+        } else if (wsso === null) {
+            try {
+                wsso = new w.ActiveXObject("WScript.Shell");
+                wssoc = true;
+            } catch (ee) {
+                wsso = false;
             }
+        }
+
+        return wsso !== false;
+    }
+
+    function escObserver(e) {
+        e = e || window.event;
+
+        if ((e.wich || e.keyCode) == 27) {
+            exit();
         }
     }
 
-    function msFS() {
-        if (detectOnMS) {
-            var iw = w.outerWidth || w.innerWidth || d.width;
+    function toggleClass() {
+        var act;
 
-            if (!html) {
-                return false;
+        if (wssoc) {
+            act = isFS1();
+        } else {
+            act = isFS2();
+        }
+
+        active(act);
+    }
+
+    function resizeObserver(e) {
+        clearTimeout(timer);
+        timer = setTimeout(toggleClass, wssoc ? 100 : 10);
+    }
+
+    function getElements() {
+        if (html) { return true; }
+
+        body = d.body;
+        html = d.documentElement || (body && body.parentNode);
+
+        return !!html;
+    }
+
+    function fallbackRequest(element) {
+        if (!escEvt) {
+            escEvt = true;
+
+            addEvt("keydown", escObserver);
+        }
+
+        if (getWSSO()) {
+            if (!isFS1()) {
+                current = element;
+
+                active(true);
+                wsso.SendKeys("{F11}");
             }
 
-            if (!clsNSRE.test(html.className)) {
+            return;
+        }
+
+        useviewport = allowviewport;
+
+        if (useviewport) {
+            request(element);
+        }
+    }
+
+    function active(enable) {
+        if (!current) {
+            return;
+        }
+
+        if (!getElements()) {
+            current = null;
+            return;
+        }
+
+        if (enable) {
+            if (!reRoot.test(html.className)) {
                 html.className += " fsh-infullscreen";
             }
 
-            return (iw || html.clientWidth) == w.screen.width;
-        }
-
-        return !!(
-            d.fullscreenElement ||
-            d.mozFullScreenElement ||
-            d.webkitFullscreenElement ||
-            d.msFullscreenElement ||
-            false
-        );
-    }
-
-    function detectFSChange(e) {
-        if (currentElement) {
-            clearTimeout(timer);
-            timer = setTimeout(toggleFSClass, detectOnMS ? 100 : 10);
-        }
-    }
-
-    function getMainElements() {
-        if (!html) {
-            body = d.body;
-            html = d.documentElement || (body && body.parentNode);
-        }
-    }
-
-    function getScrollPosition() {
-        getMainElements();
-
-        if (target) {
-            sx = target.scrollLeft;
-            sy = target.scrollTop;
+            if (!reElement.test(current.className)) {
+                current.className += " full-screen-helper";
+            }
         } else {
-            sx = w.pageXOffset || w.scrollX || html.scrollLeft || body.scrollLeft || 0;
-            sy = w.pageYOffset || w.scrollY || html.scrollTop || body.scrollTop || 0;
+            html.className = html.className.replace(reRoot, " ");
+            current.className = current.className.replace(reElement, " ");
+            current = null;
         }
     }
 
-    function toggleFSClass() {
-        if (!currentElement) {
+    function supported() {
+        return realsupport || wssoc;
+    }
+
+    function request(element) {
+        if (!isHTMLElement(element) || current) {
             return;
         }
 
-        if (msFS()) {
-            if (!clsRE.test(currentElement.className)) {
-                currentElement.className += " full-screen-helper";
-            }
-        } else {
-            currentElement.className = currentElement.className.replace(clsRE, " ");
-            currentElement = null;
-
-            getMainElements();
-
-            if (html) {
-                html.className = html.className.replace(clsNSRE, " ");
-
-                if (target && (sy || sx)) {
-                    target.scrollLeft = sx;
-                    target.scrollTop = sy;
-                } else {
-                    w.scrollTo(sx, sy);
-                }
-            }
-        }
-    }
-
-    function getWSO() {
-        if (typeof w.ActiveXObject === "undefined") {
-            wso = null;
-        }
-
-        if (typeof wso === "undefined") {
-            try {
-                wso = new w.ActiveXObject("WScript.Shell");
-                d.attachEvent("onkeydown", msDetectEscTrigger);
-
-                detectOnMS = true;
-
-                w.attachEvent("onresize", detectFSChange);
-            } catch (ee) {
-                wso = null;
-            }
-        }
-    }
-
-    function msToggleFS(element) {
-        getWSO();
-
-        if (wso !== null) {
-            currentElement = element;
-
-            getScrollPosition();
-
-            wso.SendKeys("{F11}");
-        }
-    }
-
-    function isSupported() {
-        return !!(
-            detectOnMS ||
-            d.exitFullscreen ||
-            d.mozCancelFullScreen ||
-            d.webkitExitFullscreen ||
-            d.webkitCancelFullScreen ||
-            d.msExitFullscreen
-        );
-    }
-
-    function getElementInFS() {
-        return d.fullscreenElement ||
-               d.mozFullScreenElement ||
-               d.webkitFullscreenElement ||
-               d.msFullscreenElement ||
-               currentElement ||
-               null;
-    }
-
-    function requestFS(element) {
-        if (!isHTMLElement(element) || getElementInFS() !== null) {
-            return;
-        }
-
-        currentElement = element;
-
-        if (element.requestFullscreen) {
+        if (sc) {
             element.requestFullscreen();
-        } else if (element.mozRequestFullScreen) {
+        } else if (mozc) {
             element.mozRequestFullScreen();
-        } else if (element.webkitRequestFullscreen) {
+        } else if (wkc) {
             element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-        } else if (element.msRequestFullscreen) {
+        } else if (msc) {
             element.msRequestFullscreen();
-        } else {
-            currentElement = null;
-            return msToggleFS(element);
+        } else if (!useviewport) {
+            fallbackRequest(element);
+            return;
         }
+
+        current = element;
+
+        active(true);
     }
 
-    function exitFS() {
-        if (d.exitFullscreen) {
+    function exit() {
+        if (sc) {
             d.exitFullscreen();
-        } else if (d.mozCancelFullScreen) {
+        } else if (mozc) {
             d.mozCancelFullScreen();
-        } else if (d.webkitExitFullscreen) {
+        } else if (wkcn) {
             d.webkitExitFullscreen();
-        } else if (d.webkitCancelFullScreen) {
+        } else if (wkco) {
             d.webkitCancelFullScreen();
-        } else if (d.msExitFullscreen) {
+        } else if (msc) {
             d.msExitFullscreen();
-        } else if (wso && currentElement) {
-            wso.SendKeys("{F11}");
+        } else if (!useviewport) {
+            if (isFS1()) {
+                active(false);
+                wsso.SendKeys("{F11}");
+            }
+            return;
         }
+
+        active(false);
     }
 
-    function toggleFS(element) {
-        if (getElementInFS() === null) {
-            requestFS(element);
+    function toggle(element) {
+        if (current) {
+            exit();
         } else {
-            exitFS();
+            request(element);
         }
     }
 
-    if (!d.attachEvent && d.addEventListener) {
-        for (var i = eventsFS.length - 1; i >= 0; i--) {
-            d.addEventListener(eventsFS[i], detectFSChange);
+    if (realsupport && d.addEventListener) {
+        for (var i = events.length - 1; i >= 0; i--) {
+            d.addEventListener(events[i], resizeObserver);
         }
 
-        w.addEventListener("resize", detectFSChange);
+        w.addEventListener("resize", resizeObserver);
     }
 
     w.FullScreenHelper = {
-        "supported": isSupported,
-        "current": getElementInFS,
-        "request": requestFS,
-        "toggle": toggleFS,
-        "exit": exitFS,
-        "root": function (element) {
-            if (isHTMLElement(element)) {
-                target = element;
-            }
+        "supported": supported,
+        "request": request,
+        "toggle": toggle,
+        "exit": exit,
+        "current": function () {
+            return current;
+        },
+        "viewport": function (enable) {
+            allowviewport = !!enable;
         }
     };
+
+    var _jz = w.jQuery;
+
+    if (_jz && _jz.extend && _jz.expr) {
+        var JZ = function (action, element) {
+            switch (action) {
+                case "toggle":
+                    element && toggle(element);
+                break;
+                case "request":
+                case u:
+                    element && request(element);
+                break;
+                case "exit":
+                    !element && exit();
+                break;
+                case "supported":
+                    return !element && supported();
+            }
+        };
+
+        _jz.fn.fullScreenHelper = function (action) {
+            var element = this[0];
+
+            if (!element) {
+                return;
+            }
+
+            JZ(action, element);
+        };
+
+        _jz.fullScreenHelper = JZ;
+
+        _jz.extend(_jz.expr[":"], {
+            "fullscreen": function (element) {
+                return reElement.test(element.className);
+            }
+        });
+    }
 })(document, window);
