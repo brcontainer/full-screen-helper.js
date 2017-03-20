@@ -37,6 +37,7 @@ Method | Description
 `FullScreenHelper.toggle(element)` | Put the element in fullscreen or restore
 `FullScreenHelper.exit()` | exit fullscreen mode
 `FullScreenHelper.root(element)` | If you have removed the scrollbar from the root element on the page and added it to an element within the page for some reason, you can set it here for better scrollbar control (only needed for older versions than IE11)
+`FullScreenHelper.supported()` | Return `true` if browser support fullscreen, otherwise return `false`
 
 ### Fullscreen in Internet Explorer
 
