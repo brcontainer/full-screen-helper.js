@@ -124,6 +124,10 @@
     }
 
     function getWSO() {
+        if (typeof w.ActiveXObject === "undefined") {
+            wso = null;
+        }
+
         if (typeof wso === "undefined") {
             try {
                 wso = new w.ActiveXObject("WScript.Shell");
@@ -139,10 +143,6 @@
     }
 
     function msToggleFS(element) {
-        if (typeof w.ActiveXObject === "undefined") {
-            wso = null;
-        }
-
         getWSO();
 
         if (wso !== null) {
