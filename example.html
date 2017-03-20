@@ -3,26 +3,116 @@
 <head>
     <title>fullscreen cross-browser</title>
     <link rel="stylesheet" type="text/css" href="full-screen-helper.css">
+
+    <style type="text/css">
+    .box {
+        margin: 10px;
+        padding: 10px;
+        background-color: #ccc !important;
+        border-radius: 4px;
+        font-size: 120%;
+    }
+
+    .full-screen-helper {
+        border-radius: 0 !important;
+        overflow: auto !important;
+    }
+    </style>
 </head>
 <body>
     <div id="example1">
-        <p>Hello, world!</p>
-        <button onclick="FullScreenHelper.exit();">Exit</button>
-    </div>
-
-    <div id="example2">
-        <p>Div in fullscreen</p>
-        <button onclick="FullScreenHelper.exit();">Exit</button>
-    </div>
-
-    <div id="example3">
         <p>Toggle fullscreen Div</p>
-        <button onclick="FullScreenHelper.toggle(document.getElementById('example3'));">Toogle</button>
+        <button onclick="FullScreenHelper.toggle(document.getElementById('example1'));">
+            Toogle #example1
+        </button>
     </div>
 
-    <button onclick="FullScreenHelper.request(document.getElementById('example1'));">test 1</button>
-    <button onclick="FullScreenHelper.request(document.getElementById('example2'));">test 2</button>
+    <div id="example2" class="box">
+        <h2>#exemple2</h2>
+
+        <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed commodo tempus leo, in tristique nibh cursus vitae. Praesent vel dignissim mauris, sit amet scelerisque est. Praesent sit amet auctor dui. Duis at urna ipsum. Proin convallis orci facilisis, pellentesque metus eget, consectetur est. Donec ultricies elit id dolor fermentum, eget malesuada nunc vehicula. Duis fringilla urna eget libero luctus, id vehicula mi hendrerit. Vestibulum id ultricies dolor. In mollis, libero id venenatis pretium, libero orci luctus nisl, et rhoncus sem erat sed orci. Donec vitae volutpat orci.
+        </p>
+
+        <p>
+        Aenean mollis lorem turpis, vel pellentesque quam vestibulum sed. Fusce convallis quis tellus bibendum maximus. Nunc facilisis eros quis lacus euismod placerat. Aliquam quis tincidunt massa. Quisque eget ligula vitae nibh tempus lacinia vel sit amet eros. Pellentesque interdum erat sed consequat maximus. Phasellus at viverra massa. In tortor eros, varius facilisis ligula id, tincidunt maximus elit. Pellentesque arcu magna, laoreet mollis dignissim et, condimentum eget nibh. Quisque nec nisi a ligula volutpat tempus sit amet vitae orci. In congue tellus risus, eleifend molestie risus condimentum ac. Vestibulum scelerisque tempor mollis. Integer vulputate lorem urna, non ornare velit posuere vulputate.
+        </p>
+
+        <p>
+        Etiam massa ex, sagittis vitae lacus quis, fermentum gravida ipsum. Nullam vitae augue nec nisi congue pretium. Mauris non scelerisque nibh, non placerat nulla. Morbi a placerat lectus, eu sodales massa. Nam vitae bibendum est, sit amet imperdiet ipsum. Curabitur sagittis finibus ipsum, nec auctor justo tempus quis. Donec libero diam, pharetra ac nunc eu, ultrices dictum enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis viverra consequat pharetra. Donec at risus turpis. Duis finibus imperdiet ipsum ac tristique. Nunc a elementum diam, sit amet rutrum tellus. Mauris urna quam, commodo et bibendum at, sodales in odio.
+        </p>
+
+        <p>
+        Sed enim velit, posuere nec lacus vel, malesuada efficitur turpis. Nulla sed mauris ac elit ornare tempor. Cras facilisis varius mi sed malesuada. Vestibulum congue ipsum ac tellus hendrerit, eget cursus augue tristique. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In ante felis, tincidunt sed consequat vitae, scelerisque quis lacus. Nunc imperdiet augue ac elit sodales, eget ultrices ipsum ultricies. Vestibulum lacinia odio quis velit commodo eleifend. Nullam justo turpis, fermentum a laoreet sed, ultrices in metus. Phasellus efficitur consectetur eros, at sagittis leo tincidunt sagittis. Duis maximus nibh lobortis, viverra nibh id, interdum odio. Sed non ullamcorper dolor, sed ultrices magna. Ut ac sem dignissim, sodales magna eget, tincidunt lectus.
+        </p>
+
+        <p>
+        Morbi congue, enim et tempor consequat, dolor turpis commodo mi, vitae tempus velit neque et augue. Proin eget commodo tortor. In a tortor sagittis, posuere leo at, volutpat sapien. Maecenas sed euismod odio. Pellentesque lobortis tellus at congue pharetra. Curabitur at felis arcu. Pellentesque scelerisque dui sed euismod vehicula. In fermentum bibendum libero. Pellentesque malesuada elementum elit. Quisque a urna a nibh feugiat imperdiet.
+        </p>
+
+        <p>
+        Sed enim velit, posuere nec lacus vel, malesuada efficitur turpis. Nulla sed mauris ac elit ornare tempor. Cras facilisis varius mi sed malesuada. Vestibulum congue ipsum ac tellus hendrerit, eget cursus augue tristique. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In ante felis, tincidunt sed consequat vitae, scelerisque quis lacus. Nunc imperdiet augue ac elit sodales, eget ultrices ipsum ultricies. Vestibulum lacinia odio quis velit commodo eleifend. Nullam justo turpis, fermentum a laoreet sed, ultrices in metus. Phasellus efficitur consectetur eros, at sagittis leo tincidunt sagittis. Duis maximus nibh lobortis, viverra nibh id, interdum odio. Sed non ullamcorper dolor, sed ultrices magna. Ut ac sem dignissim, sodales magna eget, tincidunt lectus.
+        </p>
+
+        <p>
+        Morbi congue, enim et tempor consequat, dolor turpis commodo mi, vitae tempus velit neque et augue. Proin eget commodo tortor. In a tortor sagittis, posuere leo at, volutpat sapien. Maecenas sed euismod odio. Pellentesque lobortis tellus at congue pharetra. Curabitur at felis arcu. Pellentesque scelerisque dui sed euismod vehicula. In fermentum bibendum libero. Pellentesque malesuada elementum elit. Quisque a urna a nibh feugiat imperdiet.
+        </p>
+
+        <button onclick="FullScreenHelper.exit();">Exit</button>
+    </div>
+
+    <div id="example3" class="box">
+        <h2>#example3</h2>
+
+        <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed commodo tempus leo, in tristique nibh cursus vitae. Praesent vel dignissim mauris, sit amet scelerisque est. Praesent sit amet auctor dui. Duis at urna ipsum. Proin convallis orci facilisis, pellentesque metus eget, consectetur est. Donec ultricies elit id dolor fermentum, eget malesuada nunc vehicula. Duis fringilla urna eget libero luctus, id vehicula mi hendrerit. Vestibulum id ultricies dolor. In mollis, libero id venenatis pretium, libero orci luctus nisl, et rhoncus sem erat sed orci. Donec vitae volutpat orci.
+        </p>
+
+        <p>
+        Aenean mollis lorem turpis, vel pellentesque quam vestibulum sed. Fusce convallis quis tellus bibendum maximus. Nunc facilisis eros quis lacus euismod placerat. Aliquam quis tincidunt massa. Quisque eget ligula vitae nibh tempus lacinia vel sit amet eros. Pellentesque interdum erat sed consequat maximus. Phasellus at viverra massa. In tortor eros, varius facilisis ligula id, tincidunt maximus elit. Pellentesque arcu magna, laoreet mollis dignissim et, condimentum eget nibh. Quisque nec nisi a ligula volutpat tempus sit amet vitae orci. In congue tellus risus, eleifend molestie risus condimentum ac. Vestibulum scelerisque tempor mollis. Integer vulputate lorem urna, non ornare velit posuere vulputate.
+        </p>
+
+        <p>
+        Etiam massa ex, sagittis vitae lacus quis, fermentum gravida ipsum. Nullam vitae augue nec nisi congue pretium. Mauris non scelerisque nibh, non placerat nulla. Morbi a placerat lectus, eu sodales massa. Nam vitae bibendum est, sit amet imperdiet ipsum. Curabitur sagittis finibus ipsum, nec auctor justo tempus quis. Donec libero diam, pharetra ac nunc eu, ultrices dictum enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis viverra consequat pharetra. Donec at risus turpis. Duis finibus imperdiet ipsum ac tristique. Nunc a elementum diam, sit amet rutrum tellus. Mauris urna quam, commodo et bibendum at, sodales in odio.
+        </p>
+
+        <p>
+        Sed enim velit, posuere nec lacus vel, malesuada efficitur turpis. Nulla sed mauris ac elit ornare tempor. Cras facilisis varius mi sed malesuada. Vestibulum congue ipsum ac tellus hendrerit, eget cursus augue tristique. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In ante felis, tincidunt sed consequat vitae, scelerisque quis lacus. Nunc imperdiet augue ac elit sodales, eget ultrices ipsum ultricies. Vestibulum lacinia odio quis velit commodo eleifend. Nullam justo turpis, fermentum a laoreet sed, ultrices in metus. Phasellus efficitur consectetur eros, at sagittis leo tincidunt sagittis. Duis maximus nibh lobortis, viverra nibh id, interdum odio. Sed non ullamcorper dolor, sed ultrices magna. Ut ac sem dignissim, sodales magna eget, tincidunt lectus.
+        </p>
+
+        <p>
+        Morbi congue, enim et tempor consequat, dolor turpis commodo mi, vitae tempus velit neque et augue. Proin eget commodo tortor. In a tortor sagittis, posuere leo at, volutpat sapien. Maecenas sed euismod odio. Pellentesque lobortis tellus at congue pharetra. Curabitur at felis arcu. Pellentesque scelerisque dui sed euismod vehicula. In fermentum bibendum libero. Pellentesque malesuada elementum elit. Quisque a urna a nibh feugiat imperdiet.
+        </p>
+
+        <p>
+        Sed enim velit, posuere nec lacus vel, malesuada efficitur turpis. Nulla sed mauris ac elit ornare tempor. Cras facilisis varius mi sed malesuada. Vestibulum congue ipsum ac tellus hendrerit, eget cursus augue tristique. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In ante felis, tincidunt sed consequat vitae, scelerisque quis lacus. Nunc imperdiet augue ac elit sodales, eget ultrices ipsum ultricies. Vestibulum lacinia odio quis velit commodo eleifend. Nullam justo turpis, fermentum a laoreet sed, ultrices in metus. Phasellus efficitur consectetur eros, at sagittis leo tincidunt sagittis. Duis maximus nibh lobortis, viverra nibh id, interdum odio. Sed non ullamcorper dolor, sed ultrices magna. Ut ac sem dignissim, sodales magna eget, tincidunt lectus.
+        </p>
+
+        <p>
+        Morbi congue, enim et tempor consequat, dolor turpis commodo mi, vitae tempus velit neque et augue. Proin eget commodo tortor. In a tortor sagittis, posuere leo at, volutpat sapien. Maecenas sed euismod odio. Pellentesque lobortis tellus at congue pharetra. Curabitur at felis arcu. Pellentesque scelerisque dui sed euismod vehicula. In fermentum bibendum libero. Pellentesque malesuada elementum elit. Quisque a urna a nibh feugiat imperdiet.
+        </p>
+
+        <button onclick="FullScreenHelper.exit();">Exit</button>
+    </div>
+
+    <button onclick="FullScreenHelper.request(document.getElementById('example2'));">
+        #example2
+    </button>
+
+    <button onclick="FullScreenHelper.request(document.getElementById('example3'));">
+        #example3
+    </button>
 
     <script type="text/javascript" src="full-screen-helper.js"></script>
+
+    <script type="text/javascript">
+    if (typeof FullScreenHelper === "undefined") {
+        document.write("<p>FullScreenHelper is not loaded</p>");
+    } else if (FullScreenHelper.supported()) {
+        document.write("<p>Fullscreen is supported</p>");
+    } else {
+        document.write("<p>Your browser don't support fullscreen</p>");
+    }
+    </script>
 </body>
 </html>

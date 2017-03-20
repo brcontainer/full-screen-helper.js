@@ -1015,7 +1015,29 @@ body .markdown-body
   }
 }
 </style><title>README</title></head><body><article class="markdown-body"><h2 id="full-screen-helper"><a name="user-content-full-screen-helper" href="#full-screen-helper" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Full Screen Helper</h2>
+<h3 id="browser-support"><a name="user-content-browser-support" href="#browser-support" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Browser support</h3>
+<p>Tested in:</p>
+<ul>
+<li>IE8+ (using <code>ActiveX</code>)</li>
+<li>IE11 (without <code>ActiveX</code>)</li>
+<li>Firefox</li>
+<li>Google Chrome</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> for security reasons maybe <code>WScript.shell</code> (<code>ActiveX</code>) may be blocked.</p>
+</blockquote>
 <h3 id="usage"><a name="user-content-usage" href="#usage" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Usage</h3>
+<p>For use an video in fullscreen:</p>
+<pre><code class="html">&lt;video id=&quot;myVideo&quot; src=&quot;video.webm&quot;&gt;&lt;/video&gt;
+
+&lt;button onclick=&quot;FullScreenHelper.request(document.getElementById('myVideo'));&quot;&gt;Fullscreen&lt;/button&gt;
+</code></pre>
+
+<p>Entire page in fullscreen:</p>
+<pre><code class="html">&lt;button onclick=&quot;FullScreenHelper.request(document.body);&quot;&gt;Fullscreen&lt;/button&gt;
+</code></pre>
+
+<h3 id="api"><a name="user-content-api" href="#api" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>API</h3>
 <table>
 <thead>
 <tr>
@@ -1040,8 +1062,66 @@ body .markdown-body
 <td><code>FullScreenHelper.exit()</code></td>
 <td>exit fullscreen mode</td>
 </tr>
+<tr>
+<td><code>FullScreenHelper.root(element)</code></td>
+<td>If you have removed the scrollbar from the root element on the page and added it to an element within the page for some reason, you can set it here for better scrollbar control (only needed for older versions than IE11)</td>
+</tr>
 </tbody>
 </table>
-<h3 id="old-internet-explorer"><a name="user-content-old-internet-explorer" href="#old-internet-explorer" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Old Internet Explorer</h3>
+<h3 id="fullscreen-in-internet-explorer"><a name="user-content-fullscreen-in-internet-explorer" href="#fullscreen-in-internet-explorer" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Fullscreen in Internet Explorer</h3>
 <p>For support in older MSIE browser is needed <code>WScript.Shell</code> activex, but in IE8+ security has been increased, which can cause the script to not work.</p>
-<p>For MSIE11 is used <code>msRequestFullscreen</code> and <code>msExitFullscreen</code></p></article></body></html>
+<p>For MSIE11 is used <code>msRequestFullscreen</code> and <code>msExitFullscreen</code></p>
+<h3 id="css-selector"><a name="user-content-css-selector" href="#css-selector" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>CSS selector</h3>
+<p>Use combined CSS selectors with prefix don&rsquo;t work, because when there is an invalid selector the whole rule dropped, if grouped (details: <a href="https://www.w3.org/TR/selectors4/#logical-combination">https://www.w3.org/TR/selectors4/#logical-combination</a>):</p>
+<pre><code class="css">:fullscreen,
+:full-screen,
+:-webkit-full-screen,
+:-moz-full-screen,
+:-ms-fullscreen {
+    /* your custom css */
+}
+</code></pre>
+
+<p>When the selectors are not grouped, only invalids (depends on the browser) rules are dropped, example:</p>
+<pre><code class="css">/* dropped in older browsers */
+:fullscreen {
+    /* your custom css */
+}
+
+/* dropped in new browsers */
+:full-screen {
+    /* your custom css */
+}
+
+/* dropped in all browsers except Safari, Chrome and others with webkit */
+:-webkit-full-screen {
+    /* your custom css */
+}
+
+/* dropped in all browsers except Mozilla Firefox */
+:-moz-full-screen {
+    /* your custom css */
+}
+
+/* dropped in all browsers except Internet Explorer 11 */
+:-ms-fullscreen {
+    /* your custom css */
+}
+</code></pre>
+
+<p>However having a rule for each thing can make the code much more difficult to maintain, so you can use the selector:</p>
+<pre><code class="css">.full-screen-helper {
+    /* your custom css */
+}
+</code></pre>
+
+<h3 id="css-box-sizing"><a name="user-content-css-box-sizing" href="#css-box-sizing" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>CSS box-sizing</h3>
+<p>The script has not been tested on older browsers such as IE7, but is likely to work depending on <code>ActiveX</code> support, however <code>box-sizing</code> may not work or you may be using a modern browser and you have changed the control of <code>box-sizing</code> to something like:</p>
+<pre><code class="css">.my-element {
+    box-sizing: content-box !important;
+    padding: 10px !important;
+    border: 1px #ccc solid !important;
+}
+</code></pre>
+
+<p>In both cases you can suffer side effects maybe use <code>padding</code> or <code>border</code>.</p></article></body></html>
