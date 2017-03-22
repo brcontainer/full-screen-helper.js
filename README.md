@@ -21,12 +21,25 @@ For use an video in fullscreen:
 <button onclick="FullScreenHelper.request(document.getElementById('myVideo'));">Fullscreen</button>
 ```
 
+with jQuery:
+
+```html
+<video id="myVideo" src="video.webm"></video>
+
+<button onclick="$('#myVideo').fullScreenHelper('request');">Fullscreen</button>
+```
+
 Entire page in fullscreen:
 
 ```html
-<button onclick="FullScreenHelper.request(document.body);">Fullscreen</button>
+<button onclick="FullScreenHelper.request();">Fullscreen</button>
 ```
 
+with jQuery:
+
+```html
+<button onclick="$('body').fullScreenHelper('request');">Fullscreen</button>
+```
 
 ### API
 
@@ -34,8 +47,8 @@ Method | Description
 --- | ---
 `FullScreenHelper.supported()` | Return `true` if browser support fullscreen, otherwise return `false`
 `FullScreenHelper.viewport(true or false)` | If define `true` use fullviewport as fallback to browsers without support to fullscreen. Default is `true`
-`FullScreenHelper.request(element)` | Show element in fullscreen, if there is not another one on fullscreen
-`FullScreenHelper.toggle(element)` | Put the element in fullscreen or restore
+`FullScreenHelper.request([element])` | Show element in fullscreen, if there is not another one on fullscreen.
+`FullScreenHelper.toggle([element])` | Put the element in fullscreen or restore
 `FullScreenHelper.exit()` | Exit fullscreen mode
 `FullScreenHelper.current()` | Get current element in fullscreen, otherwise returns `null`
 

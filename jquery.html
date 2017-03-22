@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>fullscreen cross-browser</title>
+    <title>jQuery fullscreen cross-browser</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" type="text/css" href="full-screen-helper.css">
 
     <style type="text/css">
@@ -23,6 +24,20 @@
     <div id="example1">
         <p>Toggle fullscreen Div</p>
         <button onclick="$('#example1').fullScreenHelper('toggle');">
+            Toogle #example1
+        </button>
+
+        <p>Fullscreen page</p>
+        <button onclick="$('body').fullScreenHelper('request');">
+            Fullscreen page
+        </button>
+        <button onclick="$.fullScreenHelper('exit');">
+            Exit fullscreen page
+        </button>
+    </div>
+    <div id="example1">
+        <p>Toggle fullscreen Div</p>
+        <button onclick="">
             Toogle #example1
         </button>
     </div>
@@ -92,6 +107,7 @@
         Morbi congue, enim et tempor consequat, dolor turpis commodo mi, vitae tempus velit neque et augue. Proin eget commodo tortor. In a tortor sagittis, posuere leo at, volutpat sapien. Maecenas sed euismod odio. Pellentesque lobortis tellus at congue pharetra. Curabitur at felis arcu. Pellentesque scelerisque dui sed euismod vehicula. In fermentum bibendum libero. Pellentesque malesuada elementum elit. Quisque a urna a nibh feugiat imperdiet.
         </p>
 
+        <button onclick="console.log($(':fullscreen').get(0));">get</button>
         <button onclick="$.fullScreenHelper('exit');">Exit</button>
     </div>
 

@@ -1,12 +1,12 @@
 /*
- * full-screen-helper.js 1.0.0-rc
+ * full-screen-helper.js 1.0.0-rc2
  *
  * Copyright (c) 2017 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
  * Released under the MIT license
  */
 
-(function (d, w, u) {
+(function (d, w, $, u) {
     "use strict";
 
     var html, body, current, timer,
@@ -22,6 +22,7 @@
     msc = !!d.msExitFullscree,
     reRoot = /(^|\s+)fsh-infullscreen($|\s+)/i,
     reElement = /(^|\s+)full-screen-helper($|\s+)/i,
+    changeEvents = [],
     events = [
         "webkitfullscreenchange", "mozfullscreenchange",
         "fullscreenchange", "MSFullscreenChange"
@@ -37,10 +38,10 @@
         return obj && obj.nodeType === 1 && obj.ownerDocument;
     }
 
-    function addEvt(type, callback) {
-        d.addEventListener ?
-            d.addEventListener(type, callback) :
-            d.attachEvent("on" + type, callback);
+    function addEvt(obj, type, callback) {
+        obj.addEventListener ?
+            obj.addEventListener(type, callback) :
+            obj.attachEvent("on" + type, callback);
     }
 
     function isFS1() {
@@ -54,22 +55,28 @@
     }
 
     function getWSSO() {
-        if (typeof w.ActiveXObject === "undefined") {
+        if (wsso !== null) {
+            return wssoc;
+        }
+
+        if (wsso === false || typeof w.ActiveXObject === "undefined") {
             wsso = false;
         } else if (wsso === null) {
             try {
                 wsso = new w.ActiveXObject("WScript.Shell");
                 wssoc = true;
+
+                addEvt(w, "resize", resizeObserver);
             } catch (ee) {
                 wsso = false;
             }
         }
 
-        return wsso !== false;
+        return wssoc;
     }
 
     function escObserver(e) {
-        e = e || window.event;
+        e = e || w.event;
 
         if ((e.wich || e.keyCode) == 27) {
             exit();
@@ -106,7 +113,7 @@
         if (!escEvt) {
             escEvt = true;
 
-            addEvt("keydown", escObserver);
+            addEvt(d, "keydown", escObserver);
         }
 
         if (getWSSO()) {
@@ -157,8 +164,12 @@
     }
 
     function request(element) {
-        if (!isHTMLElement(element) || current) {
+        if ((!isHTMLElement(element) && element !== u) || current) {
             return;
+        }
+
+        if (element === u) {
+            element = body || d.body;
         }
 
         if (sc) {
@@ -191,7 +202,7 @@
         } else if (msc) {
             d.msExitFullscreen();
         } else if (!useviewport) {
-            if (isFS1()) {
+            if (isFS1() && wssoc) {
                 active(false);
                 wsso.SendKeys("{F11}");
             }
@@ -202,7 +213,7 @@
     }
 
     function toggle(element) {
-        if (current) {
+        if (current === element) {
             exit();
         } else {
             request(element);
@@ -230,9 +241,7 @@
         }
     };
 
-    var _jz = w.jQuery;
-
-    if (_jz && _jz.extend && _jz.expr) {
+    if ($ && $.extend && $.expr) {
         var JZ = function (action, element) {
             switch (action) {
                 case "toggle":
@@ -250,7 +259,7 @@
             }
         };
 
-        _jz.fn.fullScreenHelper = function (action) {
+        $.fn.fullScreenHelper = function (action) {
             var element = this[0];
 
             if (!element) {
@@ -260,12 +269,10 @@
             JZ(action, element);
         };
 
-        _jz.fullScreenHelper = JZ;
+        $.fullScreenHelper = JZ;
 
-        _jz.extend(_jz.expr[":"], {
-            "fullscreen": function (element) {
-                return reElement.test(element.className);
-            }
-        });
+        $.expr[":"].fullscreen = function (element) {
+            return reElement.test(element.className);
+        };
     }
-})(document, window);
+})(document, window, window.jQuery);

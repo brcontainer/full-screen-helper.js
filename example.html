@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>fullscreen cross-browser</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" type="text/css" href="full-screen-helper.css">
 
     <style type="text/css">
@@ -24,6 +25,14 @@
         <p>Toggle fullscreen Div</p>
         <button onclick="FullScreenHelper.toggle(document.getElementById('example1'));">
             Toogle #example1
+        </button>
+
+        <p>Fullscreen page</p>
+        <button onclick="FullScreenHelper.request();">
+            Fullscreen page
+        </button>
+        <button onclick="FullScreenHelper.exit();">
+            Exit fullscreen page
         </button>
     </div>
 

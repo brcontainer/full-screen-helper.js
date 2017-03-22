@@ -1,5 +1,5 @@
 /*
- * full-screen-helper.js 1.0.0-rc
+ * full-screen-helper.js 1.0.0-rc2
  *
  * Copyright (c) 2017 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
@@ -10,6 +10,10 @@ html.fsh-infullscreen, html.fsh-infullscreen body {
     width: 100% !important;
     height: 100% !important;
     overflow: hidden !important;
+}
+
+html.fsh-infullscreen body {
+    overflow: auto !important;
 }
 
 .full-screen-helper {
@@ -24,7 +28,7 @@ html.fsh-infullscreen, html.fsh-infullscreen body {
     max-height: 100% !important;
 
     /* fallback: don't use !important*/
-    background-color: white;
+    background-color: #fff;
     z-index: 2147483647;
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
