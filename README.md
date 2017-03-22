@@ -18,14 +18,6 @@ For use an video in fullscreen:
 ```html
 <video id="myVideo" src="video.webm"></video>
 
-<button onclick="FullScreenHelper.request(document.getElementById('myVideo'));">Fullscreen</button>
-```
-
-with jQuery:
-
-```html
-<video id="myVideo" src="video.webm"></video>
-
 <button onclick="$('#myVideo').fullScreenHelper('request');">Fullscreen</button>
 ```
 
@@ -34,8 +26,6 @@ Entire page in fullscreen:
 ```html
 <button onclick="FullScreenHelper.request();">Fullscreen</button>
 ```
-
-with jQuery:
 
 ```html
 <button onclick="$('body').fullScreenHelper('request');">Fullscreen</button>
@@ -47,7 +37,7 @@ Method | Description
 --- | ---
 `FullScreenHelper.supported()` | Return `true` if browser support fullscreen, otherwise return `false`
 `FullScreenHelper.viewport(true or false)` | If define `true` use fullviewport as fallback to browsers without support to fullscreen. Default is `true`
-`FullScreenHelper.request([element])` | Show element in fullscreen, if there is not another one on fullscreen.
+`FullScreenHelper.request([element])` | Show element in fullscreen, if there is not another one on fullscreen
 `FullScreenHelper.toggle([element])` | Put the element in fullscreen or restore
 `FullScreenHelper.exit()` | Exit fullscreen mode
 `FullScreenHelper.current()` | Get current element in fullscreen, otherwise returns `null`
@@ -59,6 +49,8 @@ Method | Equivalent
 `$(':fullscreen')` | `FullScreenHelper.current()`
 `$('...').fullScreenHelper('request');` | `FullScreenHelper.request(element)`
 `$('...').fullScreenHelper('toggle');` | `FullScreenHelper.toggle(element)`
+`$('body').fullScreenHelper('request');` | `FullScreenHelper.request()`
+`$('body').fullScreenHelper('toggle');` | `FullScreenHelper.toggle()`
 `$.fullScreenHelper('supported');` | `FullScreenHelper.supported()`
 `$.fullScreenHelper('exit');` | `FullScreenHelper.exit()`
 
@@ -68,6 +60,12 @@ Method | Equivalent
 For support in older MSIE browser is needed `WScript.Shell` activex, but in IE8+ security has been increased, which can cause the script to not work.
 
 For MSIE11 is used `msRequestFullscreen` and `msExitFullscreen`
+
+> **Note:** It is recommended that you use:
+>
+> ```html
+> <meta http-equiv="X-UA-Compatible" content="IE=edge">
+> ```
 
 ### CSS selector
 
