@@ -12,7 +12,7 @@ html.fsh-infullscreen, html.fsh-infullscreen body {
     overflow: hidden !important;
 }
 
-html.fsh-infullscreen body {
+html.fsh-infullscreen body.full-screen-helper {
     overflow: auto !important;
 }
 

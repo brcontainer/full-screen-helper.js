@@ -9,7 +9,8 @@ Tested in:
 - Firefox
 - Google Chrome
 
-> **Note:** for security reasons maybe `WScript.shell` (`ActiveX`) may be blocked.
+> **Note ¹:** for security reasons maybe `WScript.shell` (`ActiveX`) may be blocked.
+> **Note ²:** Mobile browsers using fallback (full-viewport)
 
 ### Usage
 
@@ -36,11 +37,14 @@ Entire page in fullscreen:
 Method | Description
 --- | ---
 `FullScreenHelper.supported()` | Return `true` if browser support fullscreen, otherwise return `false`
+`FullScreenHelper.state()` | Return `true` if in fullscreen, otherwise return `false`
 `FullScreenHelper.viewport(true or false)` | If define `true` use fullviewport as fallback to browsers without support to fullscreen. Default is `true`
 `FullScreenHelper.request([element])` | Show element in fullscreen, if there is not another one on fullscreen
 `FullScreenHelper.toggle([element])` | Put the element in fullscreen or restore
 `FullScreenHelper.exit()` | Exit fullscreen mode
 `FullScreenHelper.current()` | Get current element in fullscreen, otherwise returns `null`
+`FullScreenHelper.on(function () {})` | Add event
+`FullScreenHelper.off(function () {})` | Remove event
 
 # jQuery fullscreen API
 
@@ -51,8 +55,10 @@ Method | Equivalent
 `$('...').fullScreenHelper('toggle');` | `FullScreenHelper.toggle(element)`
 `$('body').fullScreenHelper('request');` | `FullScreenHelper.request()`
 `$('body').fullScreenHelper('toggle');` | `FullScreenHelper.toggle()`
+`$(document).bind('fullscreenchange', function () {});` | `FullScreenHelper.on(function () {})`
+`$(document).unbind('fullscreenchange', function () {});` | `FullScreenHelper.off(function () {})`
 `$.fullScreenHelper('supported');` | `FullScreenHelper.supported()`
-`$.fullScreenHelper('exit');` | `FullScreenHelper.exit()`
+`$.fullScreenHelper('state');` | `FullScreenHelper.state()`
 
 
 ### Fullscreen in Internet Explorer

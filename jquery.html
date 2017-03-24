@@ -130,6 +130,10 @@
     } else {
         document.write("<p>Your browser don't support fullscreen</p>");
     }
+
+    $(document).bind("fullscreenchange", function () {
+        console.log($.fullScreenHelper('state'));
+    });
     </script>
 </body>
 </html>

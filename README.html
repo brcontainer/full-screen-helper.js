@@ -1024,7 +1024,8 @@ body .markdown-body
 <li>Google Chrome</li>
 </ul>
 <blockquote>
-<p><strong>Note:</strong> for security reasons maybe <code>WScript.shell</code> (<code>ActiveX</code>) may be blocked.</p>
+<p><strong>Note ¹:</strong> for security reasons maybe <code>WScript.shell</code> (<code>ActiveX</code>) may be blocked.<br />
+<strong>Note ²:</strong> Mobile browsers using fallback (full-viewport)</p>
 </blockquote>
 <h3 id="usage"><a name="user-content-usage" href="#usage" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Usage</h3>
 <p>For use an video in fullscreen:</p>
@@ -1054,6 +1055,10 @@ body .markdown-body
 <td>Return <code>true</code> if browser support fullscreen, otherwise return <code>false</code></td>
 </tr>
 <tr>
+<td><code>FullScreenHelper.state()</code></td>
+<td>Return <code>true</code> if in fullscreen, otherwise return <code>false</code></td>
+</tr>
+<tr>
 <td><code>FullScreenHelper.viewport(true or false)</code></td>
 <td>If define <code>true</code> use fullviewport as fallback to browsers without support to fullscreen. Default is <code>true</code></td>
 </tr>
@@ -1072,6 +1077,14 @@ body .markdown-body
 <tr>
 <td><code>FullScreenHelper.current()</code></td>
 <td>Get current element in fullscreen, otherwise returns <code>null</code></td>
+</tr>
+<tr>
+<td><code>FullScreenHelper.on(function () {})</code></td>
+<td>Add event</td>
+</tr>
+<tr>
+<td><code>FullScreenHelper.off(function () {})</code></td>
+<td>Remove event</td>
 </tr>
 </tbody>
 </table>
@@ -1105,12 +1118,20 @@ body .markdown-body
 <td><code>FullScreenHelper.toggle()</code></td>
 </tr>
 <tr>
+<td><code>$(document).bind('fullscreenchange', function () {});</code></td>
+<td><code>FullScreenHelper.on(function () {})</code></td>
+</tr>
+<tr>
+<td><code>$(document).unbind('fullscreenchange', function () {});</code></td>
+<td><code>FullScreenHelper.off(function () {})</code></td>
+</tr>
+<tr>
 <td><code>$.fullScreenHelper('supported');</code></td>
 <td><code>FullScreenHelper.supported()</code></td>
 </tr>
 <tr>
-<td><code>$.fullScreenHelper('exit');</code></td>
-<td><code>FullScreenHelper.exit()</code></td>
+<td><code>$.fullScreenHelper('state');</code></td>
+<td><code>FullScreenHelper.state()</code></td>
 </tr>
 </tbody>
 </table>

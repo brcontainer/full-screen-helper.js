@@ -21,20 +21,26 @@
     </style>
 </head>
 <body>
+    <p>Fullscreen page</p>
+    <button onclick="FullScreenHelper.request(document);">
+        Fullscreen page
+    </button>
+    <button onclick="FullScreenHelper.exit();">
+        Exit fullscreen page
+    </button>
+
     <div id="example1">
         <p>Toggle fullscreen Div</p>
         <button onclick="FullScreenHelper.toggle(document.getElementById('example1'));">
             Toogle #example1
         </button>
-
-        <p>Fullscreen page</p>
-        <button onclick="FullScreenHelper.request();">
-            Fullscreen page
-        </button>
-        <button onclick="FullScreenHelper.exit();">
-            Exit fullscreen page
-        </button>
     </div>
+
+    <hr>
+
+    <button onclick="FullScreenHelper.request(document.getElementById('example2'));">
+        #example2
+    </button>
 
     <div id="example2" class="box">
         <h2>#exemple2</h2>
@@ -70,6 +76,10 @@
         <button onclick="FullScreenHelper.exit();">Exit</button>
     </div>
 
+    <button onclick="FullScreenHelper.request(document.getElementById('example3'));">
+        #example3
+    </button>
+
     <div id="example3" class="box">
         <h2>#example3</h2>
 
@@ -104,14 +114,6 @@
         <button onclick="FullScreenHelper.exit();">Exit</button>
     </div>
 
-    <button onclick="FullScreenHelper.request(document.getElementById('example2'));">
-        #example2
-    </button>
-
-    <button onclick="FullScreenHelper.request(document.getElementById('example3'));">
-        #example3
-    </button>
-
     <script type="text/javascript" src="full-screen-helper.js"></script>
 
     <script type="text/javascript">
@@ -122,6 +124,10 @@
     } else {
         document.write("<p>Your browser don't support fullscreen</p>");
     }
+
+    FullScreenHelper.on(function () {
+        console.log(FullScreenHelper.state());
+    });
     </script>
 </body>
 </html>
