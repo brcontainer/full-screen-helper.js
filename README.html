@@ -1102,39 +1102,47 @@ body .markdown-body
 <td><code>FullScreenHelper.current()</code></td>
 </tr>
 <tr>
-<td><code>$('...').fullScreenHelper('request');</code></td>
+<td><code>$('...').fullScreenHelper('request')</code></td>
 <td><code>FullScreenHelper.request(element)</code></td>
 </tr>
 <tr>
-<td><code>$('...').fullScreenHelper('toggle');</code></td>
+<td><code>$('...').fullScreenHelper('toggle')</code></td>
 <td><code>FullScreenHelper.toggle(element)</code></td>
 </tr>
 <tr>
-<td><code>$('body').fullScreenHelper('request');</code></td>
+<td><code>$('body').fullScreenHelper('request')</code></td>
 <td><code>FullScreenHelper.request()</code></td>
 </tr>
 <tr>
-<td><code>$('body').fullScreenHelper('toggle');</code></td>
+<td><code>$('body').fullScreenHelper('toggle')</code></td>
 <td><code>FullScreenHelper.toggle()</code></td>
 </tr>
 <tr>
-<td><code>$(document).bind('fullscreenchange', function () {});</code></td>
+<td><code>$(document).bind('fullscreenchange', function () {})</code></td>
 <td><code>FullScreenHelper.on(function () {})</code></td>
 </tr>
 <tr>
-<td><code>$(document).unbind('fullscreenchange', function () {});</code></td>
+<td><code>$(document).unbind('fullscreenchange', function () {})</code></td>
 <td><code>FullScreenHelper.off(function () {})</code></td>
 </tr>
 <tr>
-<td><code>$.fullScreenHelper('supported');</code></td>
+<td><code>$.fullScreenHelper('supported')</code></td>
 <td><code>FullScreenHelper.supported()</code></td>
 </tr>
 <tr>
-<td><code>$.fullScreenHelper('state');</code></td>
+<td><code>$.fullScreenHelper('state')</code></td>
 <td><code>FullScreenHelper.state()</code></td>
+</tr>
+<tr>
+<td><code>$.fullScreenHelper('exit')</code></td>
+<td><code>FullScreenHelper.exit()</code></td>
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p><strong>Note ¹:</strong> <code>'request'</code> is optional in <code>$('...').fullScreenHelper('request')</code>, you can use <code>$('...').fullScreenHelper()</code><br />
+<strong>Note ²:</strong> You can use <code>$('body')</code> or <code>$(document)</code> in <code>.fullScreenHelper('toggle')</code> and <code>.fullScreenHelper('request')</code></p>
+</blockquote>
 <h3 id="fullscreen-in-internet-explorer"><a name="user-content-fullscreen-in-internet-explorer" href="#fullscreen-in-internet-explorer" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Fullscreen in Internet Explorer</h3>
 <p>For support in older MSIE browser is needed <code>WScript.Shell</code> activex, but in IE8+ security has been increased, which can cause the script to not work.</p>
 <p>For MSIE11 is used <code>msRequestFullscreen</code> and <code>msExitFullscreen</code></p>

@@ -51,15 +51,18 @@ Method | Description
 Method | Equivalent
 --- | ---
 `$(':fullscreen')` | `FullScreenHelper.current()`
-`$('...').fullScreenHelper('request');` | `FullScreenHelper.request(element)`
-`$('...').fullScreenHelper('toggle');` | `FullScreenHelper.toggle(element)`
-`$('body').fullScreenHelper('request');` | `FullScreenHelper.request()`
-`$('body').fullScreenHelper('toggle');` | `FullScreenHelper.toggle()`
-`$(document).bind('fullscreenchange', function () {});` | `FullScreenHelper.on(function () {})`
-`$(document).unbind('fullscreenchange', function () {});` | `FullScreenHelper.off(function () {})`
-`$.fullScreenHelper('supported');` | `FullScreenHelper.supported()`
-`$.fullScreenHelper('state');` | `FullScreenHelper.state()`
+`$('...').fullScreenHelper('request')` | `FullScreenHelper.request(element)`
+`$('...').fullScreenHelper('toggle')` | `FullScreenHelper.toggle(element)`
+`$('body').fullScreenHelper('request')` | `FullScreenHelper.request()`
+`$('body').fullScreenHelper('toggle')` | `FullScreenHelper.toggle()`
+`$(document).bind('fullscreenchange', function () {})` | `FullScreenHelper.on(function () {})`
+`$(document).unbind('fullscreenchange', function () {})` | `FullScreenHelper.off(function () {})`
+`$.fullScreenHelper('supported')` | `FullScreenHelper.supported()`
+`$.fullScreenHelper('state')` | `FullScreenHelper.state()`
+`$.fullScreenHelper('exit')` | `FullScreenHelper.exit()`
 
+> **Note ¹:** `'request'` is optional in `$('...').fullScreenHelper('request')`, you can use `$('...').fullScreenHelper()`
+> **Note ²:** You can use `$('body')` or `$(document)` in `.fullScreenHelper('toggle')` and `.fullScreenHelper('request')`
 
 ### Fullscreen in Internet Explorer
 

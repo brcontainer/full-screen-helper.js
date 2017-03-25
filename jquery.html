@@ -21,26 +21,26 @@
     </style>
 </head>
 <body>
-    <div id="example1">
-        <p>Toggle fullscreen Div</p>
-        <button onclick="$('#example1').fullScreenHelper('toggle');">
-            Toogle #example1
-        </button>
+    <p>Fullscreen page</p>
+    <button onclick="$('body').fullScreenHelper('request');">
+        Fullscreen page
+    </button>
+    <button onclick="$.fullScreenHelper('exit');">
+        Exit fullscreen page
+    </button>
 
-        <p>Fullscreen page</p>
-        <button onclick="$('body').fullScreenHelper('request');">
-            Fullscreen page
-        </button>
-        <button onclick="$.fullScreenHelper('exit');">
-            Exit fullscreen page
-        </button>
-    </div>
     <div id="example1">
         <p>Toggle fullscreen Div</p>
         <button onclick="$('#example1').fullScreenHelper('toggle');">
             Toogle #example1
         </button>
     </div>
+
+    <hr>
+
+    <button onclick="$('#example2').fullScreenHelper('request');">
+        #example2
+    </button>
 
     <div id="example2" class="box">
         <h2>#exemple2</h2>
@@ -76,6 +76,10 @@
         <button onclick="$.fullScreenHelper('exit');">Exit</button>
     </div>
 
+    <button onclick="$('#example3').fullScreenHelper('request');">
+        #example3
+    </button>
+
     <div id="example3" class="box">
         <h2>#example3</h2>
 
@@ -107,32 +111,28 @@
         Morbi congue, enim et tempor consequat, dolor turpis commodo mi, vitae tempus velit neque et augue. Proin eget commodo tortor. In a tortor sagittis, posuere leo at, volutpat sapien. Maecenas sed euismod odio. Pellentesque lobortis tellus at congue pharetra. Curabitur at felis arcu. Pellentesque scelerisque dui sed euismod vehicula. In fermentum bibendum libero. Pellentesque malesuada elementum elit. Quisque a urna a nibh feugiat imperdiet.
         </p>
 
-        <button onclick="console.log($(':fullscreen').get(0));">get</button>
         <button onclick="$.fullScreenHelper('exit');">Exit</button>
     </div>
 
-    <button onclick="$('#example2').fullScreenHelper('request');">
-        #example2
-    </button>
-
-    <button onclick="$('#example3').fullScreenHelper('request');">
-        #example3
-    </button>
-
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.slim.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="full-screen-helper.js"></script>
 
     <script type="text/javascript">
-    if (!FullScreenHelper) {
+    if (typeof FullScreenHelper === "undefined") {
         document.write("<p>FullScreenHelper is not loaded</p>");
-    } else if ($.fullScreenHelper('supported')) {
+    } else if ($.fullScreenHelper("supported")) {
         document.write("<p>Fullscreen is supported</p>");
     } else {
         document.write("<p>Your browser don't support fullscreen</p>");
     }
 
-    $(document).bind("fullscreenchange", function () {
-        console.log($.fullScreenHelper('state'));
+    //Use .bind or .on
+    $(document).on("fullscreenchange", function () {
+        if ($.fullScreenHelper("state")) {
+            console.log("In fullscreen", $(":fullscreen"));
+        } else {
+            console.log("Not in fullscreen");
+        }
     });
     </script>
 </body>

@@ -126,7 +126,11 @@
     }
 
     FullScreenHelper.on(function () {
-        console.log(FullScreenHelper.state());
+        if (FullScreenHelper.state()) {
+            console.log("In fullscreen", FullScreenHelper.current());
+        } else {
+            console.log("Not in fullscreen");
+        }
     });
     </script>
 </body>

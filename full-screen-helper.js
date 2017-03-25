@@ -1,5 +1,5 @@
 /*
- * full-screen-helper.js 1.0.0-rc3
+ * full-screen-helper.js 1.0.0-rc4
  *
  * Copyright (c) 2017 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
@@ -20,6 +20,7 @@
     wkco = !!d.webkitCancelFullScreen,
     wkcn = !!d.webkitExitFullscreen,
     msc = !!d.msExitFullscreen,
+
     reRoot = /(^|\s+)fsh-infullscreen($|\s+)/i,
     reElement = /(^|\s+)full-screen-helper($|\s+)/i,
     changeEvents = [],
@@ -78,8 +79,8 @@
     }
 
     function isFS1() {
-        getElements();
-        return (w.outerWidth || w.innerWidth || d.width || html.clientWidth) == w.screen.width;
+        return getElements() &&
+                (w.outerWidth || w.innerWidth || html.clientWidth) == w.screen.width;
     }
 
     function isFS2() {
@@ -194,14 +195,17 @@
         }
 
         state = enable;
+        setTimeout(triggerEvents, 1);
+    }
 
+    function triggerEvents() {
         for (var i = 0, j = changeEvents.length; i < j; i++) {
             changeEvents[i]();
         }
     }
 
     function supported() {
-        return realsupport || wssoc;
+        return realsupport || getWSSO();
     }
 
     function request(element) {
@@ -261,10 +265,10 @@
 
     if (realsupport && d.addEventListener) {
         for (var i = events.length - 1; i >= 0; i--) {
-            d.addEventListener(events[i], resizeObserver);
+            addEvt(d, events[i], resizeObserver);
         }
 
-        w.addEventListener("resize", resizeObserver);
+        addEvt(w, "resize", resizeObserver);
     }
 
     w.FullScreenHelper = {
@@ -290,30 +294,6 @@
     };
 
     if ($ && $.extend && $.expr) {
-        var JZ = function (action, element) {
-            switch (action) {
-                case "toggle":
-                    element && toggle(element);
-                break;
-                case "request":
-                case u:
-                    element && request(element);
-                break;
-                case "exit":
-                    !element && exit();
-                break;
-                case "supported":
-                    if (!element) {
-                        return supported();
-                    }
-                break;
-                case "state":
-                    if (!element) {
-                        return state;
-                    }
-            }
-        };
-
         $.fn.fullScreenHelper = function (action) {
             var element = this[0];
 
@@ -321,10 +301,29 @@
                 return;
             }
 
-            JZ(action, element);
+            switch (action) {
+                case "toggle":
+                    toggle(element);
+                break;
+                case "request":
+                case u:
+                    request(element);
+                break;
+            }
         };
 
-        $.fullScreenHelper = JZ;
+        $.fullScreenHelper = function (action) {
+            switch (action) {
+                case "exit":
+                    exit();
+                break;
+                case "supported":
+                    return supported();
+                break;
+                case "state":
+                    return state;
+            }
+        };
 
         $.expr[":"].fullscreen = function (element) {
             return reElement.test(element.className);
@@ -333,7 +332,7 @@
         if (!("onfullscreenchange" in d)) {
             var $d = $(d);
 
-            w.FullScreenHelper.on(function () {
+            change(function () {
                 $d.trigger("fullscreenchange");
             });
         }
