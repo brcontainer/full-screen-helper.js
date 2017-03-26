@@ -199,7 +199,7 @@
     }
 
     function triggerEvents() {
-        for (var i = 0, j = changeEvents.length; i < j; i++) {
+        for (var i = 0; i < changeEvents.length; i++) {
             changeEvents[i]();
         }
     }
@@ -263,7 +263,7 @@
         }
     }
 
-    if (realsupport && d.addEventListener) {
+    if (realsupport) {
         for (var i = events.length - 1; i >= 0; i--) {
             addEvt(d, events[i], resizeObserver);
         }
