@@ -46,7 +46,7 @@ Method | Description
 `FullScreenHelper.on(function () {})` | Add event
 `FullScreenHelper.off(function () {})` | Remove event
 
-# jQuery fullscreen API
+### jQuery fullscreen API
 
 Method | Equivalent
 --- | ---
