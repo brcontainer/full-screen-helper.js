@@ -1,5 +1,5 @@
 /*
- * full-screen-helper.js 1.0.0
+ * full-screen-helper.js 1.0.1
  *
  * Copyright (c) 2017 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
@@ -11,7 +11,7 @@
 
     var html, body, current, timer,
 
-    wsso = null, wssoc = false, escEvt = false,
+    wsso, wssoc = false, escEvt = false,
     useviewport = false, allowviewport = true, state = false,
 
     sc = !!d.exitFullscreen,
@@ -32,50 +32,40 @@
     var realsupport = sc || mozc || wkc || msc;
 
     function change(callback, remove) {
-        if (typeof callback !== "function") {
-            return;
-        }
+        if (typeof callback !== "function") return;
 
         if (!remove) {
             changeEvents.push(callback);
             return;
         }
 
-        var fr = [];
+        var i = changeEvents.length - 1, fr = [];
 
-        for (var i = changeEvents.length - 1; i >= 0; i--) {
-            if (changeEvents[i] === callback) {
-                fr.push(i);
-            }
+        for (; i >= 0; i--) {
+            if (changeEvents[i] === callback) fr.push(i);
         }
 
-        for (var i = fr.length - 1; i >= 0; i--) {
-            changeEvents.splice(fr[i], 1);
-        }
+        for (i = fr.length - 1; i >= 0; i--) changeEvents.splice(fr[i], 1);
     }
 
     function isValid(obj) {
-        if (obj === u || obj === d) {
-            return d.body;
-        }
+        if (obj === u || obj === d) return d.body;
 
         if (w.HTMLElement) {
-            if (!obj || !(obj instanceof w.HTMLElement && obj.ownerDocument === d)) {
-                return false;
-            }
+            if (!obj || !(obj instanceof w.HTMLElement && obj.ownerDocument === d)) return false;
         }
 
-        if (!obj || obj.nodeType !== 1 || obj.ownerDocument !== d) {
-            return false;
-        }
+        if (!obj || obj.nodeType !== 1 || obj.ownerDocument !== d) return false;
 
         return obj;
     }
 
     function addEvt(obj, type, callback) {
-        obj.addEventListener ?
-            obj.addEventListener(type, callback) :
+        if (obj.addEventListener) {
+            obj.addEventListener(type, callback);
+        } else {
             obj.attachEvent("on" + type, callback);
+        }
     }
 
     function isFS1() {
@@ -87,25 +77,19 @@
         var element = d.fullscreenElement || d.mozFullScreenElement ||
                         d.webkitFullscreenElement || d.msFullscreenElement;
 
-        if (!element) {
-            return false;
-        }
+        if (!element) return false;
 
-        if (element !== current) {
-            current = element;
-        }
+        if (element !== current) current = element;
 
         return true;
     }
 
     function getWSSO() {
-        if (wsso !== null) {
-            return wssoc;
-        }
+        if (wssoc) return wssoc;
 
-        if (wsso === false || typeof w.ActiveXObject === "undefined") {
+        if (wsso === false || w.ActiveXObject === u) {
             wsso = false;
-        } else if (wsso === null) {
+        } else if (wsso === u) {
             try {
                 wsso = new w.ActiveXObject("WScript.Shell");
                 wssoc = true;
@@ -122,9 +106,7 @@
     function escObserver(e) {
         e = e || w.event;
 
-        if ((e.wich || e.keyCode) == 27) {
-            exit();
-        }
+        if ((e.wich || e.keyCode) == 27) exit();
     }
 
     function toggleClass() {
@@ -137,7 +119,7 @@
     }
 
     function getElements() {
-        if (html) { return true; }
+        if (html) return true;
 
         body = d.body;
         html = d.documentElement || (body && body.parentNode);
@@ -165,15 +147,11 @@
 
         useviewport = allowviewport;
 
-        if (useviewport) {
-            request(element);
-        }
+        if (useviewport) request(element);
     }
 
     function active(enable) {
-        if (state === enable || !current) {
-            return;
-        }
+        if (state === enable || !current) return;
 
         if (!getElements()) {
             current = null;
@@ -181,13 +159,8 @@
         }
 
         if (enable) {
-            if (!reRoot.test(html.className)) {
-                html.className += " fsh-infullscreen";
-            }
-
-            if (!reElement.test(current.className)) {
-                current.className += " full-screen-helper";
-            }
+            if (!reRoot.test(html.className)) html.className += " fsh-infullscreen";
+            if (!reElement.test(current.className)) current.className += " full-screen-helper";
         } else {
             html.className = html.className.replace(reRoot, " ");
             current.className = current.className.replace(reElement, " ");
@@ -199,9 +172,7 @@
     }
 
     function triggerEvents() {
-        for (var i = 0; i < changeEvents.length; i++) {
-            changeEvents[i]();
-        }
+        for (var i = 0; i < changeEvents.length; i++) changeEvents[i]();
     }
 
     function supported() {
@@ -211,9 +182,7 @@
     function request(element) {
         element = isValid(element);
 
-        if (current || element === false) {
-            return;
-        }
+        if (current || element === false) return;
 
         if (sc) {
             element.requestFullscreen();
@@ -264,9 +233,7 @@
     }
 
     if (realsupport) {
-        for (var i = events.length - 1; i >= 0; i--) {
-            addEvt(d, events[i], resizeObserver);
-        }
+        for (var i = events.length - 1; i >= 0; i--) addEvt(d, events[i], resizeObserver);
 
         addEvt(w, "resize", resizeObserver);
     }
@@ -297,9 +264,7 @@
         $.fn.fullScreenHelper = function (action) {
             var element = this[0];
 
-            if (!element) {
-                return;
-            }
+            if (!element) return;
 
             switch (action) {
                 case "toggle":
