@@ -1,5 +1,5 @@
 /*
- * full-screen-helper.js 1.0.1
+ * full-screen-helper.js 1.0.2
  *
  * Copyright (c) 2017 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
@@ -39,13 +39,19 @@
             return;
         }
 
-        var i = changeEvents.length - 1, fr = [];
-
-        for (; i >= 0; i--) {
-            if (changeEvents[i] === callback) fr.push(i);
+        if (!remove) {
+            changeEvents.push(callback);
+            return;
         }
 
-        for (i = fr.length - 1; i >= 0; i--) changeEvents.splice(fr[i], 1);
+        var relist = [];
+
+        for (var i = 0, j = changeEvents.length; i < j; i++) {
+            if (changeEvents[i] !== callback) relist.push(callback);
+        }
+
+        changeEvents = relist;
+        relist = null;
     }
 
     function isValid(obj) {
