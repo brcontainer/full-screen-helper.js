@@ -1,5 +1,5 @@
 /*
- * full-screen-helper.js 1.0.3
+ * full-screen-helper.js 1.0.4
  *
  * Copyright (c) 2020 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
