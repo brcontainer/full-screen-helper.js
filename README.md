@@ -1,5 +1,31 @@
 ## Full Screen Helper
 
+### Setup
+
+Include lib
+
+```html
+<script src="full-screen-helper.min.js"></script>
+```
+
+Or use CDN:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/full-screen-helper.min.js@1.0/full-screen-helper.min.js"></script>
+```
+
+Import (Angular/Vue-cli):
+
+```javascript
+import * as FullScreenHelper from 'full-screen-helper';
+```
+
+Import ESM:
+
+```javascript
+import { FullScreenHelper } from 'full-screen-helper';
+```
+
 ### Browser support
 
 Tested in:
@@ -22,6 +48,25 @@ For use an video in fullscreen:
 <button onclick="$('#myVideo').fullScreenHelper('request');">Fullscreen</button>
 ```
 
+For use an video in fullscreen (Vanilla.js :P):
+
+```html
+<video id="myVideo" src="video.webm"></video>
+
+<button onclick="FullScreenHelper.request('#myVideo');">Fullscreen</button>
+```
+
+or
+
+```javascript
+var element = document.getElementById('#myVideo');
+
+...
+
+FullScreenHelper.request(element);
+```
+---
+
 Entire page in fullscreen:
 
 ```html
@@ -39,8 +84,8 @@ Method | Description
 `FullScreenHelper.supported()` | Return `true` if browser support fullscreen, otherwise return `false`
 `FullScreenHelper.state()` | Return `true` if in fullscreen, otherwise return `false`
 `FullScreenHelper.viewport(true or false)` | If define `true` use fullviewport as fallback to browsers without support to fullscreen. Default is `true`
-`FullScreenHelper.request([element])` | Show element in fullscreen, if there is not another one on fullscreen
-`FullScreenHelper.toggle([element])` | Put the element in fullscreen or restore
+`FullScreenHelper.request(element|selector)` | Show element in fullscreen, if there is not another one on fullscreen
+`FullScreenHelper.toggle(element|selector)` | Put the element in fullscreen or restore
 `FullScreenHelper.exit()` | Exit fullscreen mode
 `FullScreenHelper.current()` | Get current element in fullscreen, otherwise returns `null`
 `FullScreenHelper.on(function () {})` | Add event
@@ -48,11 +93,11 @@ Method | Description
 
 ### jQuery fullscreen API
 
-Method | Equivalent
+Method | Equivalent |
 --- | ---
 `$(':fullscreen')` | `FullScreenHelper.current()`
-`$('...').fullScreenHelper('request')` | `FullScreenHelper.request(element)`
-`$('...').fullScreenHelper('toggle')` | `FullScreenHelper.toggle(element)`
+`$('...').fullScreenHelper('request')` | `FullScreenHelper.request(element|selector)`
+`$('...').fullScreenHelper('toggle')` | `FullScreenHelper.toggle(element|selector)`
 `$('body').fullScreenHelper('request')` | `FullScreenHelper.request()`
 `$('body').fullScreenHelper('toggle')` | `FullScreenHelper.toggle()`
 `$(document).bind('fullscreenchange', function () {})` | `FullScreenHelper.on(function () {})`

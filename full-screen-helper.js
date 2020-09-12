@@ -1,15 +1,21 @@
 /*
- * full-screen-helper.js 1.0.2
+ * full-screen-helper.js 1.0.3
  *
- * Copyright (c) 2017 Guilherme Nascimento (brcontainer@yahoo.com.br)
+ * Copyright (c) 2020 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
  * Released under the MIT license
  */
 
-(function (d, w, $, u) {
+(function (u) {
     "use strict";
 
-    var html, body, current, timer,
+    var html, body, timer,
+
+    w = typeof window !== 'undefined' ? window : {},
+    d = w.document || {},
+    $ = w.$ || {},
+
+    current = null,
 
     wsso, wssoc = false, escEvt = false,
     useviewport = false, allowviewport = true, state = false,
@@ -55,7 +61,11 @@
     }
 
     function isValid(obj) {
+        if (current) return false;
+
         if (obj === u || obj === d) return d.body;
+
+        if (typeof obj === "string") return d.querySelector(obj);
 
         if (w.HTMLElement) {
             if (!obj || !(obj instanceof w.HTMLElement && obj.ownerDocument === d)) return false;
@@ -188,7 +198,7 @@
     function request(element) {
         element = isValid(element);
 
-        if (current || element === false) return;
+        if (!element) return;
 
         if (sc) {
             element.requestFullscreen();
@@ -209,6 +219,8 @@
     }
 
     function exit() {
+        if (!current) return;
+
         if (sc) {
             d.exitFullscreen();
         } else if (mozc) {
@@ -231,7 +243,7 @@
     }
 
     function toggle(element) {
-        if (current === element) {
+        if (current === (element || d.body)) {
             exit();
         } else {
             request(element);
@@ -244,7 +256,7 @@
         addEvt(w, "resize", resizeObserver);
     }
 
-    w.FullScreenHelper = {
+    var main = {
         "supported": supported,
         "request": request,
         "toggle": toggle,
@@ -308,4 +320,12 @@
             });
         }
     }
-})(document, window, window.jQuery);
+
+    w.FullScreenHelper = main;
+
+    // CommonJS
+    if (typeof exports !== 'undefined') exports.FullScreenHelper = main;
+
+    // RequireJS
+    if (typeof define !== 'undefined') define(function () { return main; });
+})();
