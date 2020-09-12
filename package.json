@@ -1,6 +1,6 @@
 {
     "name": "full-screen-helper",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "The full-screen-helper.js is a cross-browser lib that provides an easy way for web content to be presented using the user's entire screen (support for jQuery, however is optional)",
     "main": "full-screen-helper.js",
     "scripts": {
