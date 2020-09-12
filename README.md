@@ -11,7 +11,7 @@ Include lib
 Or use CDN:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/full-screen-helper.min.js@1.0/full-screen-helper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/full-screen-helper@1.0/full-screen-helper.min.js"></script>
 ```
 
 Import (Angular/Vue-cli):
