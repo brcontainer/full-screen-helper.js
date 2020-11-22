@@ -29,7 +29,7 @@ import FullScreenHelper from 'full-screen-helper'
 RequireJS:
 
 ```javascript
-define(['folder/foo/bar/full-screen-helper'], function (FullScreenHelper) {
+requirejs(['folder/foo/bar/full-screen-helper'], function (FullScreenHelper) {
     ...
 });
 ```
