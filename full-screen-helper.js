@@ -1,5 +1,5 @@
 /*
- * full-screen-helper.js 1.0.4
+ * full-screen-helper.js 1.0.5
  *
  * Copyright (c) 2020 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
@@ -324,8 +324,8 @@
     w.FullScreenHelper = main;
 
     // CommonJS
-    if (typeof exports !== 'undefined') exports.FullScreenHelper = main;
+    if (typeof module !== "undefined" && module.exports) module.exports = main;
 
     // RequireJS
-    if (typeof define !== 'undefined') define(function () { return main; });
+    if (typeof define !== "undefined") define(function () { return main; });
 })();

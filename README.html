@@ -1065,12 +1065,18 @@ body .markdown-body
 <div class="codehilite"><pre><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/full-screen-helper@1.0/full-screen-helper.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 
-<p>Import (Angular/Vue-cli):</p>
-<div class="codehilite"><pre><span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">FullScreenHelper</span> <span class="nx">from</span> <span class="s1">&#39;full-screen-helper&#39;</span><span class="p">;</span>
+<p>Import:</p>
+<div class="codehilite"><pre><span class="kr">const</span> <span class="nx">FullScreenHelper</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;full-screen-helper&#39;</span><span class="p">);</span>
 </pre></div>
 
-<p>Import ESM:</p>
-<div class="codehilite"><pre><span class="kr">import</span> <span class="p">{</span> <span class="nx">FullScreenHelper</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;full-screen-helper&#39;</span><span class="p">;</span>
+<p>Import ES6 (eg.: &ldquo;libs&rdquo; like Angular/Vue-cli):</p>
+<div class="codehilite"><pre><span class="kr">import</span> <span class="nx">FullScreenHelper</span> <span class="nx">from</span> <span class="s1">&#39;full-screen-helper&#39;</span>
+</pre></div>
+
+<p>RequireJS:</p>
+<div class="codehilite"><pre><span class="nx">define</span><span class="p">([</span><span class="s1">&#39;folder/foo/bar/full-screen-helper&#39;</span><span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">FullScreenHelper</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">});</span>
 </pre></div>
 
 <h3 id="browser-support">Browser support<a class="headerlink" href="#browser-support" title="Permanent link"></a></h3>
@@ -1099,12 +1105,14 @@ body .markdown-body
 </pre></div>
 
 <p>or</p>
-<h2 id="var-element-documentgetelementbyidmyvideo-fullscreenhelperrequestelement"><div class="codehilite"><pre><span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;#myVideo&#39;</span><span class="p">);</span>
+<div class="codehilite"><pre><span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;#myVideo&#39;</span><span class="p">);</span>
 
 <span class="p">...</span>
 
 <span class="nx">FullScreenHelper</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
-</pre></div><a class="headerlink" href="#var-element-documentgetelementbyidmyvideo-fullscreenhelperrequestelement" title="Permanent link"></a></h2>
+</pre></div>
+
+<hr />
 <p>Entire page in fullscreen:</p>
 <div class="codehilite"><pre><span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&quot;FullScreenHelper.request();&quot;</span><span class="p">&gt;</span>Fullscreen<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
 </pre></div>
@@ -1211,8 +1219,8 @@ body .markdown-body
 </tbody>
 </table>
 <blockquote>
-<p><strong>Note ¹:</strong> <code>'request'</code> is optional in <code>$('...').fullScreenHelper('request')</code>, you can use <code>$('...').fullScreenHelper()</code>
-<strong>Note ²:</strong> You can use <code>$('body')</code> or <code>$(document)</code> in <code>.fullScreenHelper('toggle')</code> and <code>.fullScreenHelper('request')</code></p>
+<p><strong>Note ¹:</strong> <code>'request'</code> is optional in <code>$('...').fullScreenHelper('request')</code>, you can use <code>$('...').fullScreenHelper()</code></p>
+<p><strong>Note ²:</strong> You can use <code>$('body')</code> or <code>$(document)</code> in <code>.fullScreenHelper('toggle')</code> and <code>.fullScreenHelper('request')</code></p>
 </blockquote>
 <h3 id="fullscreen-in-internet-explorer">Fullscreen in Internet Explorer<a class="headerlink" href="#fullscreen-in-internet-explorer" title="Permanent link"></a></h3>
 <p>For support in older MSIE browser is needed <code>WScript.Shell</code> activex, but in IE8+ security has been increased, which can cause the script to not work.</p>

@@ -14,16 +14,24 @@ Or use CDN:
 <script src="https://cdn.jsdelivr.net/npm/full-screen-helper@1.0/full-screen-helper.min.js"></script>
 ```
 
-Import (Angular/Vue-cli):
+Import:
 
 ```javascript
-import * as FullScreenHelper from 'full-screen-helper';
+const FullScreenHelper = require('full-screen-helper');
 ```
 
-Import ESM:
+Import ES6 (eg.: "libs" like Angular/Vue-cli):
 
 ```javascript
-import { FullScreenHelper } from 'full-screen-helper';
+import FullScreenHelper from 'full-screen-helper'
+```
+
+RequireJS:
+
+```javascript
+define(['folder/foo/bar/full-screen-helper'], function (FullScreenHelper) {
+    ...
+});
 ```
 
 ### Browser support
@@ -65,6 +73,7 @@ var element = document.getElementById('#myVideo');
 
 FullScreenHelper.request(element);
 ```
+
 ---
 
 Entire page in fullscreen:
@@ -107,6 +116,7 @@ Method | Equivalent |
 `$.fullScreenHelper('exit')` | `FullScreenHelper.exit()`
 
 > **Note ¹:** `'request'` is optional in `$('...').fullScreenHelper('request')`, you can use `$('...').fullScreenHelper()`
+>
 > **Note ²:** You can use `$('body')` or `$(document)` in `.fullScreenHelper('toggle')` and `.fullScreenHelper('request')`
 
 ### Fullscreen in Internet Explorer
