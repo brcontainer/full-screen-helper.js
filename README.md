@@ -67,7 +67,7 @@ For use an video in fullscreen (Vanilla.js :P):
 or
 
 ```javascript
-var element = document.getElementById('#myVideo');
+var element = document.getElementById('myVideo');
 
 ...
 
