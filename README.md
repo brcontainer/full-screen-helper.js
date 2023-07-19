@@ -92,9 +92,9 @@ Method | Description
 --- | ---
 `FullScreenHelper.supported()` | Return `true` if browser support fullscreen, otherwise return `false`
 `FullScreenHelper.state()` | Return `true` if in fullscreen, otherwise return `false`
-`FullScreenHelper.viewport(true or false)` | If define `true` use fullviewport as fallback to browsers without support to fullscreen. Default is `true`
-`FullScreenHelper.request(element|selector)` | Show element in fullscreen, if there is not another one on fullscreen
-`FullScreenHelper.toggle(element|selector)` | Put the element in fullscreen or restore
+`FullScreenHelper.viewport(boolean)` | If define `true` use fullviewport as fallback to browsers without support to fullscreen. Default is `true`
+`FullScreenHelper.request(element\|selector)` | Show element in fullscreen, if there is not another one on fullscreen
+`FullScreenHelper.toggle(element\|selector)` | Put the element in fullscreen or restore
 `FullScreenHelper.exit()` | Exit fullscreen mode
 `FullScreenHelper.current()` | Get current element in fullscreen, otherwise returns `null`
 `FullScreenHelper.on(function () {})` | Add event
@@ -105,8 +105,8 @@ Method | Description
 Method | Equivalent |
 --- | ---
 `$(':fullscreen')` | `FullScreenHelper.current()`
-`$('...').fullScreenHelper('request')` | `FullScreenHelper.request(element|selector)`
-`$('...').fullScreenHelper('toggle')` | `FullScreenHelper.toggle(element|selector)`
+`$('...').fullScreenHelper('request')` | `FullScreenHelper.request(element\|selector)`
+`$('...').fullScreenHelper('toggle')` | `FullScreenHelper.toggle(element\|selector)`
 `$('body').fullScreenHelper('request')` | `FullScreenHelper.request()`
 `$('body').fullScreenHelper('toggle')` | `FullScreenHelper.toggle()`
 `$(document).bind('fullscreenchange', function () {})` | `FullScreenHelper.on(function () {})`
