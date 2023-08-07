@@ -4,35 +4,35 @@
 
 Include lib
 
-```html
+``` html
 <script src="full-screen-helper.min.js"></script>
-```
+``` 
 
 Or use CDN:
 
-```html
+``` html
 <script src="https://cdn.jsdelivr.net/npm/full-screen-helper@1.0/full-screen-helper.min.js"></script>
-```
+``` 
 
 Import:
 
-```javascript
+``` javascript
 const FullScreenHelper = require('full-screen-helper');
-```
+``` 
 
 Import ES6 (eg.: "libs" like Angular/Vue-cli):
 
-```javascript
+``` javascript
 import FullScreenHelper from 'full-screen-helper'
-```
+``` 
 
 RequireJS:
 
-```javascript
+``` javascript
 requirejs(['folder/foo/bar/full-screen-helper'], function (FullScreenHelper) {
     ...
 });
-```
+``` 
 
 ### Browser support
 
@@ -43,48 +43,49 @@ Tested in:
 - Firefox
 - Google Chrome
 
-> **Note ¹:** for security reasons maybe `WScript.shell` (`ActiveX`) may be blocked.
-> **Note ²:** Mobile browsers using fallback (full-viewport)
+> **Note¹:** for security reasons maybe `WScript.shell` (`ActiveX`) may be blocked.
+> 
+> **Note²:** Mobile browsers using fallback (full-viewport)
 
 ### Usage
 
 For use an video in fullscreen:
 
-```html
+``` html
 <video id="myVideo" src="video.webm"></video>
 
 <button onclick="$('#myVideo').fullScreenHelper('request');">Fullscreen</button>
-```
+``` 
 
 For use an video in fullscreen (Vanilla.js :P):
 
-```html
+``` html
 <video id="myVideo" src="video.webm"></video>
 
 <button onclick="FullScreenHelper.request('#myVideo');">Fullscreen</button>
-```
+``` 
 
 or
 
-```javascript
+``` javascript
 var element = document.getElementById('myVideo');
 
 ...
 
 FullScreenHelper.request(element);
-```
+``` 
 
 ---
 
 Entire page in fullscreen:
 
-```html
+``` html
 <button onclick="FullScreenHelper.request();">Fullscreen</button>
-```
+``` 
 
-```html
+``` html
 <button onclick="$('body').fullScreenHelper('request');">Fullscreen</button>
-```
+``` 
 
 ### API
 
@@ -102,7 +103,7 @@ Method | Description
 
 ### jQuery fullscreen API
 
-Method | Equivalent |
+Method | Equivalent
 --- | ---
 `$(':fullscreen')` | `FullScreenHelper.current()`
 `$('...').fullScreenHelper('request')` | `FullScreenHelper.request(element\|selector)`
@@ -116,7 +117,7 @@ Method | Equivalent |
 `$.fullScreenHelper('exit')` | `FullScreenHelper.exit()`
 
 > **Note ¹:** `'request'` is optional in `$('...').fullScreenHelper('request')`, you can use `$('...').fullScreenHelper()`
->
+> 
 > **Note ²:** You can use `$('body')` or `$(document)` in `.fullScreenHelper('toggle')` and `.fullScreenHelper('request')`
 
 ### Fullscreen in Internet Explorer
@@ -126,16 +127,16 @@ For support in older MSIE browser is needed `WScript.Shell` activex, but in IE8+
 For MSIE11 is used `msRequestFullscreen` and `msExitFullscreen`
 
 > **Note:** It is recommended that you use:
->
-> ```html
+> 
+> ``` html
 > <meta http-equiv="X-UA-Compatible" content="IE=edge">
-> ```
+> ``` 
 
 ### CSS selector
 
 Use combined CSS selectors with prefix don't work, because when there is an invalid selector the whole rule dropped, if grouped (details: https://www.w3.org/TR/selectors4/#logical-combination):
 
-```css
+``` css
 :fullscreen,
 :full-screen,
 :-webkit-full-screen,
@@ -143,11 +144,11 @@ Use combined CSS selectors with prefix don't work, because when there is an inva
 :-ms-fullscreen {
     /* your custom css */
 }
-```
+``` 
 
 When the selectors are not grouped, only invalids (depends on the browser) rules are dropped, example:
 
-```css
+``` css
 /* dropped in older browsers */
 :fullscreen {
     /* your custom css */
@@ -172,27 +173,27 @@ When the selectors are not grouped, only invalids (depends on the browser) rules
 :-ms-fullscreen {
     /* your custom css */
 }
-```
+``` 
 
 However having a rule for each thing can make the code much more difficult to maintain, so you can use the selector:
 
-```css
+``` css
 .full-screen-helper {
     /* your custom css */
 }
-```
+``` 
 
 ### CSS box-sizing
 
 The script has not been tested on older browsers such as IE7, but is likely to work depending on `ActiveX` support, however `box-sizing` may not work or you may be using a modern browser and you have changed the control of `box-sizing` to something like:
 
 
-```css
+``` css
 .my-element {
     box-sizing: content-box !important;
     padding: 10px !important;
     border: 1px #ccc solid !important;
 }
-```
+``` 
 
 In both cases you can suffer side effects maybe use `padding` or `border`.
