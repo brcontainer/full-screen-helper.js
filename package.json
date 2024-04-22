@@ -8,10 +8,14 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/brcontainer/full-screen-helper.js"
+        "url": "git+https://github.com/brcontainer/full-screen-helper.js.git"
     },
     "keywords": [
-        "fullscreen", "polyfill", "browser", "html5", "jquery"
+        "fullscreen",
+        "polyfill",
+        "browser",
+        "html5",
+        "jquery"
     ],
     "author": "Guilherme Nascimento (brcontainer@yahoo.com.br)",
     "license": "MIT",
