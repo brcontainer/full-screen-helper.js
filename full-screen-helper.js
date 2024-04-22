@@ -1,7 +1,7 @@
 /*
- * full-screen-helper.js 1.0.5
+ * full-screen-helper.js 1.0.6
  *
- * Copyright (c) 2020 Guilherme Nascimento (brcontainer@yahoo.com.br)
+ * Copyright (c) 2024 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
  * Released under the MIT license
  */
@@ -122,7 +122,7 @@
     function escObserver(e) {
         e = e || w.event;
 
-        if ((e.wich || e.keyCode) == 27) exit();
+        if (e.key === 'Escape' || (e.wich || e.keyCode) == 27) exit();
     }
 
     function toggleClass() {

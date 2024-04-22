@@ -3,7 +3,8 @@
 <head>
     <title>jQuery fullscreen cross-browser</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" type="text/css" href="full-screen-helper.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="full-screen-helper.min.css">
 
     <style type="text/css">
     .box {
@@ -17,6 +18,49 @@
     .full-screen-helper {
         border-radius: 0 !important;
         overflow: auto !important;
+    }
+
+    .notify {
+        margin: 10px;
+        border-radius: 4px;
+        border: thin solid #ccc;
+        background: #ececec;
+        height: 45px;
+    }
+
+    .notify > i {
+        float: left;
+        width: 40px;
+        height: 43px;
+        background: rgba(0,0,0,.32);
+        text-align: center;
+        font-style: normal;
+        font-weight: bold;
+        color: inherit;
+    }
+
+    .notify > i:before {
+        height: 100%;
+        content: "";
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .notify > p {
+        color: inherit;
+        margin: 10px 10px 10px 50px;
+    }
+
+    .notify.error {
+        border-color: #c10000;
+        background: #fd2f2f;
+        color: #fff;
+    }
+
+    .notify.warn {
+        border-color: #826803;
+        background: #e1b60b;
+        color: #fff;
     }
     </style>
 </head>
@@ -115,17 +159,17 @@
     </div>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script type="text/javascript" src="full-screen-helper.js"></script>
+    <script type="text/javascript" src="full-screen-helper.min.js"></script>
 
     <script type="text/javascript">
     if (typeof FullScreenHelper === "undefined") {
-        document.write("<p>FullScreenHelper is not loaded</p>");
-    } else if ($.fullScreenHelper("supported")) {
-        document.write("<p>Fullscreen is supported</p>");
-    } else {
-        document.write("<p>Your browser don't support fullscreen</p>");
+        document.write('<div class="notify error">FullScreenHelper is not loaded</div>');
+    } else if (!$.fullScreenHelper("supported")) {
+        document.write('<div class="notify warn">Your browser don\'t support fullscreen</div>');
     }
+    </script>
 
+    <script type="text/javascript">
     //Use .bind or .on
     $(document).on("fullscreenchange", function () {
         if ($.fullScreenHelper("state")) {
